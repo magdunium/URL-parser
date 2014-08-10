@@ -1,13 +1,9 @@
-tablica = %w{
-  http://woda.pl/profil1
-  http://woda.pl/profil2
-  http://www.dubel.com/djnsiv
-  http://incognito.uk
-  https://incognito.uk/profil1
-  }
-  pusta_tablica = []
+require 'fileutils'
+file_in = File.open('/file/path', 'r+')
+
+pusta_tablica = []
   
-  tablica.each {
+file_in.each {
     |element| 
     a = element.split("/")[2]
     b = a.split(".")
@@ -16,8 +12,15 @@ tablica = %w{
       else
         b = b[0..-1].join(".")
       end
-        pusta_tablica << [b]
+    pusta_tablica << b  
   }
-  
-puts pusta_tablica.uniq!
 
+pusta_tablica.uniq!
+
+
+file_out = File.open('/second/file/path', 'w+')
+
+pusta_tablica.each {
+ |line|
+ file_out << line + "\n"
+}
