@@ -6,12 +6,8 @@ pusta_tablica = []
 file_in.each {
     |element| 
     a = element.split("/")[2]
-    b = a.split(".")
-      if b[0] == "www"
-        b = b[1..-1].join(".")
-      else
-        b = b[0..-1].join(".")
-      end
+    b = a.split(".")[-2..-1]
+      b = b[-2..-1].join(".")
     pusta_tablica << b  
   }
 
