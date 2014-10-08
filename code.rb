@@ -1,22 +1,18 @@
 require 'fileutils'
 file_in = File.open('/file/path', 'r+')
 
-pusta_tablica = []
+empt_arr = []
   
 file_in.each {
     |element| 
     a = element.split("/")[2]
-    b = a.split(".")[-2..-1]
-      b = b[-2..-1].join(".")
-    pusta_tablica << b  
+    b = a.split(".")
+      if b[-2] == "co" or b[-2] == "com"
+        b = b[-3..-1].join(".")
+      else
+        b = b[-2..-1].join(".")
+      end
+    empt_arr << b  
   }
 
-pusta_tablica.uniq!
-
-
-file_out = File.open('/second/file/path', 'w+')
-
-pusta_tablica.each {
- |line|
- file_out << line + "\n"
-}
+empt_arr.uniq!
