@@ -1,8 +1,13 @@
 require 'fileutils'
-file_in = File.open('/file/path', 'r+')
+
+print "Podaj ścieżkę dostępu: "
+
+filepath = gets.chomp
+
+file_in = open(filepath)
 
 empt_arr = []
-  
+
 extensions = ["co", "com"]
   
 file_in.each {
@@ -19,9 +24,11 @@ file_in.each {
 
 empt_arr.uniq!
 
-file_out = File.open('/file/path', 'w+')
+file_out = File.open('/file/path/filename', 'w+')
 
 empt_arr.each {
  |line|
  file_out << line + "\n"
 }
+
+print "Koniec programu"
