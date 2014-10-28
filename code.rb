@@ -1,14 +1,18 @@
 require 'fileutils'
+require 'time'
 
+time = Time.now
+
+print "Witaj, dziś jest: " + time.httpdate + "\n"
 print "Podaj ścieżkę dostępu: "
 
-filepath = gets.chomp
+filepath = gets.chomp #pobieranie ścieżki do pliku
 
-file_in = open(filepath)
+file_in = open(filepath) 
 
 empt_arr = []
 
-extensions = ["co", "com"]
+extensions = ["co", "com"] #tablica z wyjątkami dla stron typu strona.com.pl
   
 file_in.each {
     |element| 
@@ -24,7 +28,8 @@ file_in.each {
 
 empt_arr.uniq!
 
-file_out = File.open('/file/path/filename', 'w+')
+#/home/madia/Programy/Ruby/URL-parser/GT-profile.txt
+file_out = File.open('/home/madia/Programy/Ruby/URL-parser/GT-test1.txt', 'w+')
 
 empt_arr.each {
  |line|
