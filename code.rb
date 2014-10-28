@@ -7,6 +7,7 @@ print "Witaj, dziś jest: " + time.httpdate + "\n"
 print "Podaj ścieżkę dostępu: "
 
 filepath = gets.chomp #pobieranie ścieżki do pliku
+file = filepath
 
 file_in = open(filepath) 
 
@@ -28,12 +29,15 @@ file_in.each {
 
 empt_arr.uniq!
 
-#/home/madia/Programy/Ruby/URL-parser/GT-profile.txt
-file_out = File.open('/home/madia/Programy/Ruby/URL-parser/GT-test1.txt', 'w+')
+#wydzielanie rozszerzenie i zmiana nazwy pliku na plik1.txt
+file_name = file.split(".txt")[-1]
+file_name = file_name + '1' + '.txt'
+file_out = File.open(file_name, 'w+')
 
+#zapisywanie do tablicy wyników z uniq
 empt_arr.each {
  |line|
  file_out << line + "\n"
 }
 
-print "Koniec programu"
+puts "Koniec programu"
