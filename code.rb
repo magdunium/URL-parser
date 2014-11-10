@@ -1,43 +1,50 @@
 require 'fileutils'
 require 'time'
 
-time = Time.now
+def getUniqueLinksFromFile(filepath, extensionsInFile)
+  emptyArray = []
+  fileIn = open(filepath)  
+  fileIn.each {
+      |element| 
+      a = element.split("/")[2]
+      b = a.split(".")
+        if extensionsInFile.include?(b[-2])
+          b = b[-3..-1].join(".")
+        else
+          b = b[-2..-1].join(".")
+        end
+      emptyArray << b  
+    }
+  fileIn.close()
+  emptyArray.uniq!
+  return emptyArray
+end
 
-print "Witaj, dziś jest: " + time.httpdate + "\n"
-print "Podaj ścieżkę dostępu: "
+def createNewFileName(filepath)
+  fileName = filepath.split(".txt")[-1]
+  fileName = fileName + '1' + '.txt'
+  return fileName
+end
 
-filepath = gets.chomp #pobieranie ścieżki do pliku
-file = filepath
-
-file_in = open(filepath) 
-
-empt_arr = []
-
-extensions = ["co", "com"] #tablica z wyjątkami dla stron typu strona.com.pl
-  
-file_in.each {
-    |element| 
-    a = element.split("/")[2]
-    b = a.split(".")
-      if extensions.include?(b[-2])
-        b = b[-3..-1].join(".")
-      else
-        b = b[-2..-1].join(".")
-      end
-    empt_arr << b  
+def storeUniqLinksInFile(fileName, uniqueLinks) 
+  fileOut = File.open(fileName, 'w+')
+  uniqueLinks.each {
+   |line|
+   fileOut << line + "\n"
   }
+end
 
-empt_arr.uniq!
+def getFilepathFromUser()
+  print "Podaj ścieżkę dostępu: "
+  filepath = gets.chomp
+  return filepath
+end
 
-#wydzielanie rozszerzenie i zmiana nazwy pliku na plik1.txt
-file_name = file.split(".txt")[-1]
-file_name = file_name + '1' + '.txt'
-file_out = File.open(file_name, 'w+')
+extensionsInFile = ["co", "com"]
 
-#zapisywanie do tablicy wyników z uniq
-empt_arr.each {
- |line|
- file_out << line + "\n"
-}
+filepath = getFilepathFromUser()
+uniqueLinks = getUniqueLinksFromFile(filepath, extensionsInFile)
+newFileName = createNewFileName(filepath)
+storeUniqLinksInFile(newFileName, uniqueLinks)
 
 puts "Koniec programu"
