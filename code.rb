@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'time'
 
 def getUniqueLinksFromFile(filepath, extensionsInFile)
   emptyArray = []
